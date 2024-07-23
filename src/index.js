@@ -1,5 +1,9 @@
 // src/index.js
 
+/**
+ * Checks the health of the site by detecting AdBlock, checking cookie availability, and localStorage availability.
+ * @returns {Promise<{ hasError: boolean, errorDetails: Array<{ type: string, message: string }> }>} A promise that resolves to an object containing the site health status.
+ */
 export function checkSiteHealth () {
   return detectAdBlock().then((adBlockDetected) => {
     const result = {
@@ -37,6 +41,10 @@ export function checkSiteHealth () {
   })
 }
 
+/**
+ * Detects if an ad blocker is active by creating a hidden ad banner and checking if it is blocked.
+ * @returns {Promise<boolean>} A promise that resolves to `true` if an ad blocker is detected, and `false` otherwise.
+ */
 function detectAdBlock () {
   return new Promise((resolve) => {
     const adBanner = document.createElement('div')
@@ -62,6 +70,10 @@ function detectAdBlock () {
   })
 }
 
+/**
+ * Checks if cookies are enabled in the browser.
+ * @returns {boolean} Returns true if cookies are enabled, false otherwise.
+ */
 function areCookiesEnabled () {
   document.cookie = 'testCookieEnabled=1'
   const cookieEnabled = document.cookie.indexOf('testCookieEnabled') !== -1
@@ -70,6 +82,10 @@ function areCookiesEnabled () {
   return cookieEnabled
 }
 
+/**
+ * Checks if the localStorage is available in the current browser.
+ * @returns {boolean} Returns true if localStorage is available, false otherwise.
+ */
 function isLocalStorageAvailable () {
   try {
     const testKey = 'testKey'
